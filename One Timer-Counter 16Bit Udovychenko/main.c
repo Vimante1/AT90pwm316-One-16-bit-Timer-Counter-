@@ -1,16 +1,17 @@
 /*
  * One Timer-Counter 16Bit Udovychenko.c
  *
- * Author : Vitaly Udovychenko
+ * Author : BOSS
  */ 
 
 #include <avr/io.h>
-
+#include "avr/interrupt.h"
 #define F_CPU 1000000UL // Setting the frequency 
 int Value; //Variable for value 
 int Mod; //Variable for mod
 int main(void)
 {
+	
   while (1) 
     {
 		
@@ -18,10 +19,9 @@ int main(void)
 }
 void Initialization()//Init function
 {
-	Set_Value(1);
-	Set_Mode(1);
+	
 	sei(); // Interrupt handlers call
-	Start();
+	
 }
 	
 void Start()//Starting timer/counter
@@ -33,10 +33,13 @@ void Stop()//Stopping the timer/counter
 	TCCR1B = 0b00000000;
 }
 
-ISR (TIMER1_OVF_vect) //Interrupt handlers
+ISR(TIMER1_COMPA_vect)
 {
-	Stop();
-	Clear();
+	Value++;
+	if (Value>=1000)
+	{
+		Value=0;
+	}
 }
 
 int Get_Value()
