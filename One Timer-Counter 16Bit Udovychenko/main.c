@@ -1,7 +1,7 @@
 /*
  * One Timer-Counter 16Bit Udovychenko.c
  *
- * Author : BOSS
+ * Author : Udovychenko Vitaly
  */ 
 
 #include <avr/io.h>
